@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         datasourceTable.emptyMessage = "No Photos Found!"
         datasourceTable.array = self.photos
         datasourceTable.identifier = PhotosCell.identifier
-        datasourceTable.height = 85
+        datasourceTable.height = 250
         photosList.dataSource = datasourceTable
         photosList.delegate = datasourceTable
         photosList.tableFooterView = UIView()
@@ -43,7 +43,10 @@ class ViewController: UIViewController {
         }
 
         datasourceTable.didSelect = {cell, index in
-
+            let storyboard  = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+            vc.url = self.photos[index].download_url ?? ""
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }
